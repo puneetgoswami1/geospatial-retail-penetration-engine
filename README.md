@@ -1,29 +1,23 @@
-# Geospatial Retail Market Penetration & Cannibalization Engine
+# Retail Store Catchment & Revenue Cannibalization Analysis
 
-A location intelligence analytics engine combining spatial polygon buffer analysis and demographic catchment modeling to guide retail network expansion while preventing revenue cannibalization.
+A location analytics workflow using spatial buffer overlaps to estimate whether a proposed retail store adds net new revenue or pulls sales from nearby existing branches.
 
-## Overview
-Aggressive retail expansion risks opening new storefronts that siphon traffic from existing corporate outlets rather than stealing market share from competitors. This framework computes 5km/10km drive-time trade areas, determines spatial overlap geometry, and quantifies expected revenue displacement before capital expenditure is committed.
+## Problem Context
+Opening new stores too close to existing locations inflates capex while shifting existing customers between branches. This project calculates 5km/10km trade-area overlaps to estimate net incremental sales before site approval.
 
-## Project Structure
-- `spatial_cannibalization_pipeline.sql`: Production PostGIS SQL pipeline executing `ST_Buffer`, `ST_DWithin`, and `ST_Intersection` on store coordinates.
-- `geospatial_expansion_engine.py`: Python mathematical engine calculating circular catchment lens overlaps and net accretive revenue contributions.
-- `requirements.txt`: Python package dependencies.
+## Files
+- `spatial_cannibalization_pipeline.sql`: PostGIS query using `ST_Buffer`, `ST_DWithin`, and `ST_Intersection` to measure overlapping store catchments.
+- `geospatial_expansion_engine.py`: Calculates lens overlap area and net accretive revenue after subtracting cannibalized volume.
+- `requirements.txt`: Python dependencies.
 
-## Key Spatial Metrics
-1. **Catchment Buffer (`ST_Buffer`):** Generates 5km radius trade-area polygons around candidate and existing store locations.
-2. **Catchment Overlap Index:** Quantifies the shared geographic surface area ($km^2$) between overlapping store radiuses.
-3. **Net Accretive Revenue:** Subtracts cannibalized baseline revenue from projected new store gross sales to ensure genuine top-line expansion.
+## How It Works
+1. **Trade-Area Buffers:** Builds 5km radius polygons around candidate sites and existing stores.
+2. **Overlap Measurement:** Computes shared catchment area to estimate traffic diversion from nearby branches.
+3. **Net Revenue Check:** Deducts expected cannibalization from projected gross sales to rank expansion candidates.
 
-## How to Run
+## Run Locally
 
-```bash
-# Clone the repository
-git clone [https://github.com/puneetgoswami1/geospatial-retail-penetration-engine.git](https://github.com/puneetgoswami1/geospatial-retail-penetration-engine.git)
-cd geospatial-retail-penetration-engine
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run geospatial expansion model
-python geospatial_expansion_engine.py
+    git clone https://github.com/puneetgoswami1/geospatial-retail-penetration-engine.git
+    cd geospatial-retail-penetration-engine
+    pip install -r requirements.txt
+    python geospatial_expansion_engine.py
